@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.1.7
 -- Dumped by pg_dump version 9.1.7
--- Started on 2012-12-26 07:03:47 EST
+-- Started on 2012-12-26 23:47:34 EST
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -13,7 +13,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 191 (class 3079 OID 11680)
+-- TOC entry 193 (class 3079 OID 11680)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -21,8 +21,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2105 (class 0 OID 0)
--- Dependencies: 191
+-- TOC entry 2122 (class 0 OID 0)
+-- Dependencies: 193
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -37,7 +37,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 162 (class 1259 OID 46155)
--- Dependencies: 1983 1984 5
+-- Dependencies: 1990 1991 5
 -- Name: archivo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -57,7 +57,7 @@ ALTER TABLE public.archivo OWNER TO postgres;
 
 --
 -- TOC entry 161 (class 1259 OID 46153)
--- Dependencies: 162 5
+-- Dependencies: 5 162
 -- Name: archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -72,7 +72,7 @@ CREATE SEQUENCE archivo_id_seq
 ALTER TABLE public.archivo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2106 (class 0 OID 0)
+-- TOC entry 2123 (class 0 OID 0)
 -- Dependencies: 161
 -- Name: archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -82,7 +82,7 @@ ALTER SEQUENCE archivo_id_seq OWNED BY archivo.id;
 
 --
 -- TOC entry 188 (class 1259 OID 46414)
--- Dependencies: 2021 2022 5
+-- Dependencies: 2030 2031 5
 -- Name: canton; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -117,7 +117,7 @@ CREATE SEQUENCE canton_id_seq
 ALTER TABLE public.canton_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2107 (class 0 OID 0)
+-- TOC entry 2124 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: canton_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -127,7 +127,7 @@ ALTER SEQUENCE canton_id_seq OWNED BY canton.id;
 
 --
 -- TOC entry 168 (class 1259 OID 46189)
--- Dependencies: 1990 1991 5
+-- Dependencies: 1999 2000 5
 -- Name: carga; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -162,7 +162,7 @@ CREATE SEQUENCE carga_id_seq
 ALTER TABLE public.carga_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2108 (class 0 OID 0)
+-- TOC entry 2125 (class 0 OID 0)
 -- Dependencies: 167
 -- Name: carga_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -172,7 +172,7 @@ ALTER SEQUENCE carga_id_seq OWNED BY carga.id;
 
 --
 -- TOC entry 170 (class 1259 OID 46214)
--- Dependencies: 1993 1994 5
+-- Dependencies: 2002 2003 5
 -- Name: conocimiento_area; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -207,7 +207,7 @@ CREATE SEQUENCE conocimiento_area_id_seq
 ALTER TABLE public.conocimiento_area_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2109 (class 0 OID 0)
+-- TOC entry 2126 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: conocimiento_area_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -217,7 +217,7 @@ ALTER SEQUENCE conocimiento_area_id_seq OWNED BY conocimiento_area.id;
 
 --
 -- TOC entry 172 (class 1259 OID 46227)
--- Dependencies: 1996 1997 5
+-- Dependencies: 2005 2006 5
 -- Name: conocimiento_subarea; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -238,7 +238,7 @@ ALTER TABLE public.conocimiento_subarea OWNER TO postgres;
 
 --
 -- TOC entry 171 (class 1259 OID 46225)
--- Dependencies: 5 172
+-- Dependencies: 172 5
 -- Name: conocimiento_subarea_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -253,7 +253,7 @@ CREATE SEQUENCE conocimiento_subarea_id_seq
 ALTER TABLE public.conocimiento_subarea_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2110 (class 0 OID 0)
+-- TOC entry 2127 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: conocimiento_subarea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -263,7 +263,7 @@ ALTER SEQUENCE conocimiento_subarea_id_seq OWNED BY conocimiento_subarea.id;
 
 --
 -- TOC entry 166 (class 1259 OID 46181)
--- Dependencies: 5
+-- Dependencies: 1996 1997 5
 -- Name: formulario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -271,7 +271,12 @@ CREATE TABLE formulario (
     id integer NOT NULL,
     name character varying(100),
     year character varying(16),
-    description text
+    description text,
+    created timestamp without time zone DEFAULT now() NOT NULL,
+    modified timestamp without time zone DEFAULT now() NOT NULL,
+    created_by integer,
+    modified_by integer,
+    levantamiento_id integer
 );
 
 
@@ -279,7 +284,7 @@ ALTER TABLE public.formulario OWNER TO postgres;
 
 --
 -- TOC entry 165 (class 1259 OID 46179)
--- Dependencies: 166 5
+-- Dependencies: 5 166
 -- Name: formulario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -294,7 +299,7 @@ CREATE SEQUENCE formulario_id_seq
 ALTER TABLE public.formulario_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2111 (class 0 OID 0)
+-- TOC entry 2128 (class 0 OID 0)
 -- Dependencies: 165
 -- Name: formulario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -304,7 +309,7 @@ ALTER SEQUENCE formulario_id_seq OWNED BY formulario.id;
 
 --
 -- TOC entry 164 (class 1259 OID 46168)
--- Dependencies: 1986 1987 5
+-- Dependencies: 1993 1994 5
 -- Name: ies; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -323,7 +328,7 @@ CREATE TABLE ies (
 ALTER TABLE public.ies OWNER TO postgres;
 
 --
--- TOC entry 2112 (class 0 OID 0)
+-- TOC entry 2129 (class 0 OID 0)
 -- Dependencies: 164
 -- Name: COLUMN ies.code; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -333,7 +338,7 @@ COMMENT ON COLUMN ies.code IS '1. Código de la institución';
 
 --
 -- TOC entry 163 (class 1259 OID 46166)
--- Dependencies: 164 5
+-- Dependencies: 5 164
 -- Name: ies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -348,7 +353,7 @@ CREATE SEQUENCE ies_id_seq
 ALTER TABLE public.ies_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2113 (class 0 OID 0)
+-- TOC entry 2130 (class 0 OID 0)
 -- Dependencies: 163
 -- Name: ies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -357,8 +362,52 @@ ALTER SEQUENCE ies_id_seq OWNED BY ies.id;
 
 
 --
+-- TOC entry 192 (class 1259 OID 46569)
+-- Dependencies: 2036 2037 5
+-- Name: levantamiento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE levantamiento (
+    id integer NOT NULL,
+    name character varying(100),
+    description text,
+    created timestamp without time zone DEFAULT now(),
+    modified timestamp without time zone DEFAULT now(),
+    created_by integer,
+    modified_by integer
+);
+
+
+ALTER TABLE public.levantamiento OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 46567)
+-- Dependencies: 5 192
+-- Name: levantamiento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE levantamiento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.levantamiento_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2131 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: levantamiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE levantamiento_id_seq OWNED BY levantamiento.id;
+
+
+--
 -- TOC entry 180 (class 1259 OID 46312)
--- Dependencies: 2008 2009 5
+-- Dependencies: 2017 2018 5
 -- Name: opcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -393,7 +442,7 @@ CREATE SEQUENCE opcion_id_seq
 ALTER TABLE public.opcion_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2114 (class 0 OID 0)
+-- TOC entry 2132 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: opcion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -403,7 +452,7 @@ ALTER SEQUENCE opcion_id_seq OWNED BY opcion.id;
 
 --
 -- TOC entry 174 (class 1259 OID 46245)
--- Dependencies: 1999 2000 5
+-- Dependencies: 2008 2009 5
 -- Name: parametro; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -440,7 +489,7 @@ CREATE SEQUENCE parametro_id_seq
 ALTER TABLE public.parametro_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2115 (class 0 OID 0)
+-- TOC entry 2133 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: parametro_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -450,7 +499,7 @@ ALTER SEQUENCE parametro_id_seq OWNED BY parametro.id;
 
 --
 -- TOC entry 190 (class 1259 OID 46429)
--- Dependencies: 2024 2025 5
+-- Dependencies: 2033 2034 5
 -- Name: parroquia; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -473,7 +522,7 @@ CREATE TABLE parroquia (
 ALTER TABLE public.parroquia OWNER TO postgres;
 
 --
--- TOC entry 2116 (class 0 OID 0)
+-- TOC entry 2134 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: COLUMN parroquia.cambio; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -482,7 +531,7 @@ COMMENT ON COLUMN parroquia.cambio IS 'Cantones que pasan a formar parte de nuev
 
 
 --
--- TOC entry 2117 (class 0 OID 0)
+-- TOC entry 2135 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: COLUMN parroquia.ojo; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -494,7 +543,7 @@ COMMENT ON COLUMN parroquia.ojo IS 'Doble asterisco en archivo del INEC, por lo 
 
 --
 -- TOC entry 189 (class 1259 OID 46427)
--- Dependencies: 190 5
+-- Dependencies: 5 190
 -- Name: parroquia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -509,7 +558,7 @@ CREATE SEQUENCE parroquia_id_seq
 ALTER TABLE public.parroquia_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2118 (class 0 OID 0)
+-- TOC entry 2136 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: parroquia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -519,7 +568,7 @@ ALTER SEQUENCE parroquia_id_seq OWNED BY parroquia.id;
 
 --
 -- TOC entry 178 (class 1259 OID 46284)
--- Dependencies: 2005 2006 5
+-- Dependencies: 2014 2015 5
 -- Name: pregunta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -557,7 +606,7 @@ CREATE SEQUENCE pregunta_id_seq
 ALTER TABLE public.pregunta_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2119 (class 0 OID 0)
+-- TOC entry 2137 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: pregunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -567,7 +616,7 @@ ALTER SEQUENCE pregunta_id_seq OWNED BY pregunta.id;
 
 --
 -- TOC entry 186 (class 1259 OID 46404)
--- Dependencies: 2018 2019 5
+-- Dependencies: 2027 2028 5
 -- Name: provincia; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -586,7 +635,7 @@ ALTER TABLE public.provincia OWNER TO postgres;
 
 --
 -- TOC entry 185 (class 1259 OID 46402)
--- Dependencies: 186 5
+-- Dependencies: 5 186
 -- Name: provincia_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -601,7 +650,7 @@ CREATE SEQUENCE provincia_id_seq
 ALTER TABLE public.provincia_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2120 (class 0 OID 0)
+-- TOC entry 2138 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: provincia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -611,7 +660,7 @@ ALTER SEQUENCE provincia_id_seq OWNED BY provincia.id;
 
 --
 -- TOC entry 184 (class 1259 OID 46382)
--- Dependencies: 2014 2015 2016 5
+-- Dependencies: 2023 2024 2025 5
 -- Name: registro; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -631,7 +680,7 @@ ALTER TABLE public.registro OWNER TO postgres;
 
 --
 -- TOC entry 183 (class 1259 OID 46380)
--- Dependencies: 184 5
+-- Dependencies: 5 184
 -- Name: registro_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -646,7 +695,7 @@ CREATE SEQUENCE registro_id_seq
 ALTER TABLE public.registro_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2121 (class 0 OID 0)
+-- TOC entry 2139 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: registro_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -656,7 +705,7 @@ ALTER SEQUENCE registro_id_seq OWNED BY registro.id;
 
 --
 -- TOC entry 182 (class 1259 OID 46345)
--- Dependencies: 2011 2012 5
+-- Dependencies: 2020 2021 5
 -- Name: respuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -679,7 +728,7 @@ ALTER TABLE public.respuesta OWNER TO postgres;
 
 --
 -- TOC entry 181 (class 1259 OID 46343)
--- Dependencies: 5 182
+-- Dependencies: 182 5
 -- Name: respuesta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -694,7 +743,7 @@ CREATE SEQUENCE respuesta_id_seq
 ALTER TABLE public.respuesta_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2122 (class 0 OID 0)
+-- TOC entry 2140 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: respuesta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -704,7 +753,7 @@ ALTER SEQUENCE respuesta_id_seq OWNED BY respuesta.id;
 
 --
 -- TOC entry 176 (class 1259 OID 46258)
--- Dependencies: 2002 2003 5
+-- Dependencies: 2011 2012 5
 -- Name: tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -737,7 +786,7 @@ CREATE SEQUENCE tipo_id_seq
 ALTER TABLE public.tipo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2123 (class 0 OID 0)
+-- TOC entry 2141 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: tipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -746,8 +795,8 @@ ALTER SEQUENCE tipo_id_seq OWNED BY tipo.id;
 
 
 --
--- TOC entry 1982 (class 2604 OID 46158)
--- Dependencies: 161 162 162
+-- TOC entry 1989 (class 2604 OID 46158)
+-- Dependencies: 162 161 162
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -755,7 +804,7 @@ ALTER TABLE ONLY archivo ALTER COLUMN id SET DEFAULT nextval('archivo_id_seq'::r
 
 
 --
--- TOC entry 2020 (class 2604 OID 46417)
+-- TOC entry 2029 (class 2604 OID 46417)
 -- Dependencies: 187 188 188
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -764,7 +813,7 @@ ALTER TABLE ONLY canton ALTER COLUMN id SET DEFAULT nextval('canton_id_seq'::reg
 
 
 --
--- TOC entry 1989 (class 2604 OID 46192)
+-- TOC entry 1998 (class 2604 OID 46192)
 -- Dependencies: 168 167 168
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -773,7 +822,7 @@ ALTER TABLE ONLY carga ALTER COLUMN id SET DEFAULT nextval('carga_id_seq'::regcl
 
 
 --
--- TOC entry 1992 (class 2604 OID 46217)
+-- TOC entry 2001 (class 2604 OID 46217)
 -- Dependencies: 169 170 170
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -782,8 +831,8 @@ ALTER TABLE ONLY conocimiento_area ALTER COLUMN id SET DEFAULT nextval('conocimi
 
 
 --
--- TOC entry 1995 (class 2604 OID 46230)
--- Dependencies: 172 171 172
+-- TOC entry 2004 (class 2604 OID 46230)
+-- Dependencies: 171 172 172
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -791,7 +840,7 @@ ALTER TABLE ONLY conocimiento_subarea ALTER COLUMN id SET DEFAULT nextval('conoc
 
 
 --
--- TOC entry 1988 (class 2604 OID 46184)
+-- TOC entry 1995 (class 2604 OID 46184)
 -- Dependencies: 166 165 166
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -800,7 +849,7 @@ ALTER TABLE ONLY formulario ALTER COLUMN id SET DEFAULT nextval('formulario_id_s
 
 
 --
--- TOC entry 1985 (class 2604 OID 46171)
+-- TOC entry 1992 (class 2604 OID 46171)
 -- Dependencies: 163 164 164
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -809,7 +858,16 @@ ALTER TABLE ONLY ies ALTER COLUMN id SET DEFAULT nextval('ies_id_seq'::regclass)
 
 
 --
--- TOC entry 2007 (class 2604 OID 46315)
+-- TOC entry 2035 (class 2604 OID 46572)
+-- Dependencies: 192 191 192
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY levantamiento ALTER COLUMN id SET DEFAULT nextval('levantamiento_id_seq'::regclass);
+
+
+--
+-- TOC entry 2016 (class 2604 OID 46315)
 -- Dependencies: 180 179 180
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -818,7 +876,7 @@ ALTER TABLE ONLY opcion ALTER COLUMN id SET DEFAULT nextval('opcion_id_seq'::reg
 
 
 --
--- TOC entry 1998 (class 2604 OID 46248)
+-- TOC entry 2007 (class 2604 OID 46248)
 -- Dependencies: 174 173 174
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -827,8 +885,8 @@ ALTER TABLE ONLY parametro ALTER COLUMN id SET DEFAULT nextval('parametro_id_seq
 
 
 --
--- TOC entry 2023 (class 2604 OID 46432)
--- Dependencies: 190 189 190
+-- TOC entry 2032 (class 2604 OID 46432)
+-- Dependencies: 189 190 190
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -836,7 +894,7 @@ ALTER TABLE ONLY parroquia ALTER COLUMN id SET DEFAULT nextval('parroquia_id_seq
 
 
 --
--- TOC entry 2004 (class 2604 OID 46287)
+-- TOC entry 2013 (class 2604 OID 46287)
 -- Dependencies: 177 178 178
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -845,7 +903,7 @@ ALTER TABLE ONLY pregunta ALTER COLUMN id SET DEFAULT nextval('pregunta_id_seq':
 
 
 --
--- TOC entry 2017 (class 2604 OID 46407)
+-- TOC entry 2026 (class 2604 OID 46407)
 -- Dependencies: 185 186 186
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -854,7 +912,7 @@ ALTER TABLE ONLY provincia ALTER COLUMN id SET DEFAULT nextval('provincia_id_seq
 
 
 --
--- TOC entry 2013 (class 2604 OID 46385)
+-- TOC entry 2022 (class 2604 OID 46385)
 -- Dependencies: 184 183 184
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -863,7 +921,7 @@ ALTER TABLE ONLY registro ALTER COLUMN id SET DEFAULT nextval('registro_id_seq':
 
 
 --
--- TOC entry 2010 (class 2604 OID 46348)
+-- TOC entry 2019 (class 2604 OID 46348)
 -- Dependencies: 181 182 182
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -872,7 +930,7 @@ ALTER TABLE ONLY respuesta ALTER COLUMN id SET DEFAULT nextval('respuesta_id_seq
 
 
 --
--- TOC entry 2001 (class 2604 OID 46261)
+-- TOC entry 2010 (class 2604 OID 46261)
 -- Dependencies: 175 176 176
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
@@ -881,8 +939,8 @@ ALTER TABLE ONLY tipo ALTER COLUMN id SET DEFAULT nextval('tipo_id_seq'::regclas
 
 
 --
--- TOC entry 2069 (class 0 OID 46155)
--- Dependencies: 162 2098
+-- TOC entry 2084 (class 0 OID 46155)
+-- Dependencies: 162 2115
 -- Data for Name: archivo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -891,7 +949,7 @@ COPY archivo (id, name, md5, extension, created, modified, created_by, modified_
 
 
 --
--- TOC entry 2124 (class 0 OID 0)
+-- TOC entry 2142 (class 0 OID 0)
 -- Dependencies: 161
 -- Name: archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -900,8 +958,8 @@ SELECT pg_catalog.setval('archivo_id_seq', 1, false);
 
 
 --
--- TOC entry 2095 (class 0 OID 46414)
--- Dependencies: 188 2098
+-- TOC entry 2110 (class 0 OID 46414)
+-- Dependencies: 188 2115
 -- Data for Name: canton; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1142,7 +1200,7 @@ COPY canton (id, code, name, provincia_id, created, modified, created_by, modifi
 
 
 --
--- TOC entry 2125 (class 0 OID 0)
+-- TOC entry 2143 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: canton_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1151,8 +1209,8 @@ SELECT pg_catalog.setval('canton_id_seq', 585, true);
 
 
 --
--- TOC entry 2075 (class 0 OID 46189)
--- Dependencies: 168 2098
+-- TOC entry 2090 (class 0 OID 46189)
+-- Dependencies: 168 2115
 -- Data for Name: carga; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1161,7 +1219,7 @@ COPY carga (id, archivo_id, ies_id, formulario_id, created, modified, created_by
 
 
 --
--- TOC entry 2126 (class 0 OID 0)
+-- TOC entry 2144 (class 0 OID 0)
 -- Dependencies: 167
 -- Name: carga_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1170,8 +1228,8 @@ SELECT pg_catalog.setval('carga_id_seq', 1, false);
 
 
 --
--- TOC entry 2077 (class 0 OID 46214)
--- Dependencies: 170 2098
+-- TOC entry 2092 (class 0 OID 46214)
+-- Dependencies: 170 2115
 -- Data for Name: conocimiento_area; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1190,7 +1248,7 @@ COPY conocimiento_area (id, code, name, description, created, modified, created_
 
 
 --
--- TOC entry 2127 (class 0 OID 0)
+-- TOC entry 2145 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: conocimiento_area_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1199,8 +1257,8 @@ SELECT pg_catalog.setval('conocimiento_area_id_seq', 10, true);
 
 
 --
--- TOC entry 2079 (class 0 OID 46227)
--- Dependencies: 172 2098
+-- TOC entry 2094 (class 0 OID 46227)
+-- Dependencies: 172 2115
 -- Data for Name: conocimiento_subarea; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1235,7 +1293,7 @@ COPY conocimiento_subarea (id, code, name, description, conocimiento_area_id, cr
 
 
 --
--- TOC entry 2128 (class 0 OID 0)
+-- TOC entry 2146 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: conocimiento_subarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1244,24 +1302,24 @@ SELECT pg_catalog.setval('conocimiento_subarea_id_seq', 26, true);
 
 
 --
--- TOC entry 2073 (class 0 OID 46181)
--- Dependencies: 166 2098
+-- TOC entry 2088 (class 0 OID 46181)
+-- Dependencies: 166 2115
 -- Data for Name: formulario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY formulario (id, name, year, description) FROM stdin;
-1	IES	2012	Datos institucionales
-2	MEC	2012	Matriz, Extensiones, Centros de Apoyo y Unidades Académicas
-3	EAU	2012	Estructura Académica (carreras y programas)
-4	MTC	2012	Estudiantes matriculados en nivel técnico, tecnológico, tercer y cuarto nivel
-5	PAC	2012	Personal académico (profesores e investigadores)
-6	PAT	2012	Personal técnico docente, administrativo y trabajadores
-7	BMI	2012	Bienes muebles, inmuebles e intangibles 
+COPY formulario (id, name, year, description, created, modified, created_by, modified_by, levantamiento_id) FROM stdin;
+1	IES	2012	Datos institucionales	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+2	MEC	2012	Matriz, Extensiones, Centros de Apoyo y Unidades Académicas	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+3	EAU	2012	Estructura Académica (carreras y programas)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+4	MTC	2012	Estudiantes matriculados en nivel técnico, tecnológico, tercer y cuarto nivel	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+5	PAC	2012	Personal académico (profesores e investigadores)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+6	PAT	2012	Personal técnico docente, administrativo y trabajadores	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+7	BMI	2012	Bienes muebles, inmuebles e intangibles 	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
 \.
 
 
 --
--- TOC entry 2129 (class 0 OID 0)
+-- TOC entry 2147 (class 0 OID 0)
 -- Dependencies: 165
 -- Name: formulario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1270,8 +1328,8 @@ SELECT pg_catalog.setval('formulario_id_seq', 7, true);
 
 
 --
--- TOC entry 2071 (class 0 OID 46168)
--- Dependencies: 164 2098
+-- TOC entry 2086 (class 0 OID 46168)
+-- Dependencies: 164 2115
 -- Data for Name: ies; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1337,7 +1395,7 @@ COPY ies (id, code, name, notas, created, modified, created_by, modified_by) FRO
 
 
 --
--- TOC entry 2130 (class 0 OID 0)
+-- TOC entry 2148 (class 0 OID 0)
 -- Dependencies: 163
 -- Name: ies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1346,8 +1404,27 @@ SELECT pg_catalog.setval('ies_id_seq', 57, true);
 
 
 --
--- TOC entry 2087 (class 0 OID 46312)
--- Dependencies: 180 2098
+-- TOC entry 2114 (class 0 OID 46569)
+-- Dependencies: 192 2115
+-- Data for Name: levantamiento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY levantamiento (id, name, description, created, modified, created_by, modified_by) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2149 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: levantamiento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('levantamiento_id_seq', 1, false);
+
+
+--
+-- TOC entry 2102 (class 0 OID 46312)
+-- Dependencies: 180 2115
 -- Data for Name: opcion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1356,7 +1433,7 @@ COPY opcion (id, name, description, pregunta_id, created, modified, created_by, 
 
 
 --
--- TOC entry 2131 (class 0 OID 0)
+-- TOC entry 2150 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: opcion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1365,8 +1442,8 @@ SELECT pg_catalog.setval('opcion_id_seq', 1, false);
 
 
 --
--- TOC entry 2081 (class 0 OID 46245)
--- Dependencies: 174 2098
+-- TOC entry 2096 (class 0 OID 46245)
+-- Dependencies: 174 2115
 -- Data for Name: parametro; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1375,7 +1452,7 @@ COPY parametro (id, name, valor, texto, numero, fecha, created, modified, create
 
 
 --
--- TOC entry 2132 (class 0 OID 0)
+-- TOC entry 2151 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: parametro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1384,8 +1461,8 @@ SELECT pg_catalog.setval('parametro_id_seq', 1, false);
 
 
 --
--- TOC entry 2097 (class 0 OID 46429)
--- Dependencies: 190 2098
+-- TOC entry 2112 (class 0 OID 46429)
+-- Dependencies: 190 2115
 -- Data for Name: parroquia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2793,7 +2870,7 @@ COPY parroquia (id, code, name, canton_id, created, modified, created_by, modifi
 
 
 --
--- TOC entry 2133 (class 0 OID 0)
+-- TOC entry 2152 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: parroquia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2802,8 +2879,8 @@ SELECT pg_catalog.setval('parroquia_id_seq', 4202, true);
 
 
 --
--- TOC entry 2085 (class 0 OID 46284)
--- Dependencies: 178 2098
+-- TOC entry 2100 (class 0 OID 46284)
+-- Dependencies: 178 2115
 -- Data for Name: pregunta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2815,7 +2892,7 @@ COPY pregunta (id, description, pregunta_id, name, tipo_id, orden, created, modi
 
 
 --
--- TOC entry 2134 (class 0 OID 0)
+-- TOC entry 2153 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: pregunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2824,8 +2901,8 @@ SELECT pg_catalog.setval('pregunta_id_seq', 5, true);
 
 
 --
--- TOC entry 2093 (class 0 OID 46404)
--- Dependencies: 186 2098
+-- TOC entry 2108 (class 0 OID 46404)
+-- Dependencies: 186 2115
 -- Data for Name: provincia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2860,7 +2937,7 @@ COPY provincia (id, code, name, created, modified, created_by, modified_by) FROM
 
 
 --
--- TOC entry 2135 (class 0 OID 0)
+-- TOC entry 2154 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: provincia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2869,8 +2946,8 @@ SELECT pg_catalog.setval('provincia_id_seq', 26, true);
 
 
 --
--- TOC entry 2091 (class 0 OID 46382)
--- Dependencies: 184 2098
+-- TOC entry 2106 (class 0 OID 46382)
+-- Dependencies: 184 2115
 -- Data for Name: registro; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2879,7 +2956,7 @@ COPY registro (id, contexto, description, creado, created, modified, created_by,
 
 
 --
--- TOC entry 2136 (class 0 OID 0)
+-- TOC entry 2155 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: registro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2888,8 +2965,8 @@ SELECT pg_catalog.setval('registro_id_seq', 1, false);
 
 
 --
--- TOC entry 2089 (class 0 OID 46345)
--- Dependencies: 182 2098
+-- TOC entry 2104 (class 0 OID 46345)
+-- Dependencies: 182 2115
 -- Data for Name: respuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2898,7 +2975,7 @@ COPY respuesta (id, texto, numero, pregunta_id, description, carga_id, name, cre
 
 
 --
--- TOC entry 2137 (class 0 OID 0)
+-- TOC entry 2156 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: respuesta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2907,8 +2984,8 @@ SELECT pg_catalog.setval('respuesta_id_seq', 1, false);
 
 
 --
--- TOC entry 2083 (class 0 OID 46258)
--- Dependencies: 176 2098
+-- TOC entry 2098 (class 0 OID 46258)
+-- Dependencies: 176 2115
 -- Data for Name: tipo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2922,7 +2999,7 @@ COPY tipo (id, name, created, modified, created_by, modified_by) FROM stdin;
 
 
 --
--- TOC entry 2138 (class 0 OID 0)
+-- TOC entry 2157 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -2931,8 +3008,8 @@ SELECT pg_catalog.setval('tipo_id_seq', 8, true);
 
 
 --
--- TOC entry 2029 (class 2606 OID 46178)
--- Dependencies: 164 164 2099
+-- TOC entry 2041 (class 2606 OID 46178)
+-- Dependencies: 164 164 2116
 -- Name: IES_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2941,8 +3018,8 @@ ALTER TABLE ONLY ies
 
 
 --
--- TOC entry 2049 (class 2606 OID 46393)
--- Dependencies: 184 184 2099
+-- TOC entry 2061 (class 2606 OID 46393)
+-- Dependencies: 184 184 2116
 -- Name: Logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2951,8 +3028,8 @@ ALTER TABLE ONLY registro
 
 
 --
--- TOC entry 2027 (class 2606 OID 46165)
--- Dependencies: 162 162 2099
+-- TOC entry 2039 (class 2606 OID 46165)
+-- Dependencies: 162 162 2116
 -- Name: archivos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2961,8 +3038,8 @@ ALTER TABLE ONLY archivo
 
 
 --
--- TOC entry 2053 (class 2606 OID 46421)
--- Dependencies: 188 188 2099
+-- TOC entry 2065 (class 2606 OID 46421)
+-- Dependencies: 188 188 2116
 -- Name: canton_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2971,8 +3048,8 @@ ALTER TABLE ONLY canton
 
 
 --
--- TOC entry 2033 (class 2606 OID 46196)
--- Dependencies: 168 168 2099
+-- TOC entry 2045 (class 2606 OID 46196)
+-- Dependencies: 168 168 2116
 -- Name: cargas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2981,8 +3058,8 @@ ALTER TABLE ONLY carga
 
 
 --
--- TOC entry 2035 (class 2606 OID 46224)
--- Dependencies: 170 170 2099
+-- TOC entry 2047 (class 2606 OID 46224)
+-- Dependencies: 170 170 2116
 -- Name: conocimiento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2991,8 +3068,8 @@ ALTER TABLE ONLY conocimiento_area
 
 
 --
--- TOC entry 2037 (class 2606 OID 46237)
--- Dependencies: 172 172 2099
+-- TOC entry 2049 (class 2606 OID 46237)
+-- Dependencies: 172 172 2116
 -- Name: conocimiento_subarea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3001,8 +3078,8 @@ ALTER TABLE ONLY conocimiento_subarea
 
 
 --
--- TOC entry 2031 (class 2606 OID 46186)
--- Dependencies: 166 166 2099
+-- TOC entry 2043 (class 2606 OID 46186)
+-- Dependencies: 166 166 2116
 -- Name: formularios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3011,8 +3088,18 @@ ALTER TABLE ONLY formulario
 
 
 --
--- TOC entry 2045 (class 2606 OID 46322)
--- Dependencies: 180 180 2099
+-- TOC entry 2069 (class 2606 OID 46579)
+-- Dependencies: 192 192 2116
+-- Name: levantamiento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY levantamiento
+    ADD CONSTRAINT levantamiento_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2057 (class 2606 OID 46322)
+-- Dependencies: 180 180 2116
 -- Name: opciones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3021,8 +3108,8 @@ ALTER TABLE ONLY opcion
 
 
 --
--- TOC entry 2039 (class 2606 OID 46255)
--- Dependencies: 174 174 2099
+-- TOC entry 2051 (class 2606 OID 46255)
+-- Dependencies: 174 174 2116
 -- Name: parametros_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3031,8 +3118,8 @@ ALTER TABLE ONLY parametro
 
 
 --
--- TOC entry 2055 (class 2606 OID 46436)
--- Dependencies: 190 190 2099
+-- TOC entry 2067 (class 2606 OID 46436)
+-- Dependencies: 190 190 2116
 -- Name: parroquia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3041,8 +3128,8 @@ ALTER TABLE ONLY parroquia
 
 
 --
--- TOC entry 2043 (class 2606 OID 46294)
--- Dependencies: 178 178 2099
+-- TOC entry 2055 (class 2606 OID 46294)
+-- Dependencies: 178 178 2116
 -- Name: preguntas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3051,8 +3138,8 @@ ALTER TABLE ONLY pregunta
 
 
 --
--- TOC entry 2051 (class 2606 OID 46411)
--- Dependencies: 186 186 2099
+-- TOC entry 2063 (class 2606 OID 46411)
+-- Dependencies: 186 186 2116
 -- Name: provincia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3061,8 +3148,8 @@ ALTER TABLE ONLY provincia
 
 
 --
--- TOC entry 2047 (class 2606 OID 46355)
--- Dependencies: 182 182 2099
+-- TOC entry 2059 (class 2606 OID 46355)
+-- Dependencies: 182 182 2116
 -- Name: respuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3071,8 +3158,8 @@ ALTER TABLE ONLY respuesta
 
 
 --
--- TOC entry 2041 (class 2606 OID 46265)
--- Dependencies: 176 176 2099
+-- TOC entry 2053 (class 2606 OID 46265)
+-- Dependencies: 176 176 2116
 -- Name: tipos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -3081,8 +3168,8 @@ ALTER TABLE ONLY tipo
 
 
 --
--- TOC entry 2066 (class 2606 OID 46552)
--- Dependencies: 188 186 2050 2099
+-- TOC entry 2081 (class 2606 OID 46552)
+-- Dependencies: 2062 188 186 2116
 -- Name: canton_provincia_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3091,8 +3178,8 @@ ALTER TABLE ONLY canton
 
 
 --
--- TOC entry 2056 (class 2606 OID 46197)
--- Dependencies: 162 168 2026 2099
+-- TOC entry 2071 (class 2606 OID 46197)
+-- Dependencies: 2038 162 168 2116
 -- Name: cargas_archivo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3101,8 +3188,8 @@ ALTER TABLE ONLY carga
 
 
 --
--- TOC entry 2057 (class 2606 OID 46202)
--- Dependencies: 2030 168 166 2099
+-- TOC entry 2072 (class 2606 OID 46202)
+-- Dependencies: 2042 168 166 2116
 -- Name: cargas_formulario_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3111,8 +3198,8 @@ ALTER TABLE ONLY carga
 
 
 --
--- TOC entry 2058 (class 2606 OID 46207)
--- Dependencies: 2028 168 164 2099
+-- TOC entry 2073 (class 2606 OID 46207)
+-- Dependencies: 168 2040 164 2116
 -- Name: cargas_ies_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3121,8 +3208,8 @@ ALTER TABLE ONLY carga
 
 
 --
--- TOC entry 2059 (class 2606 OID 46557)
--- Dependencies: 172 170 2034 2099
+-- TOC entry 2074 (class 2606 OID 46557)
+-- Dependencies: 2046 172 170 2116
 -- Name: conocimiento_subarea_conocimiento_area_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3131,8 +3218,18 @@ ALTER TABLE ONLY conocimiento_subarea
 
 
 --
--- TOC entry 2063 (class 2606 OID 46542)
--- Dependencies: 180 178 2042 2099
+-- TOC entry 2070 (class 2606 OID 46596)
+-- Dependencies: 166 2068 192 2116
+-- Name: formulario_levantamiento_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY formulario
+    ADD CONSTRAINT formulario_levantamiento_id_fkey FOREIGN KEY (levantamiento_id) REFERENCES levantamiento(id);
+
+
+--
+-- TOC entry 2078 (class 2606 OID 46542)
+-- Dependencies: 2054 180 178 2116
 -- Name: opciones_pregunta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3141,8 +3238,8 @@ ALTER TABLE ONLY opcion
 
 
 --
--- TOC entry 2067 (class 2606 OID 46562)
--- Dependencies: 2052 190 188 2099
+-- TOC entry 2082 (class 2606 OID 46562)
+-- Dependencies: 2064 190 188 2116
 -- Name: parroquia_canton_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3151,8 +3248,8 @@ ALTER TABLE ONLY parroquia
 
 
 --
--- TOC entry 2060 (class 2606 OID 46527)
--- Dependencies: 178 166 2030 2099
+-- TOC entry 2075 (class 2606 OID 46527)
+-- Dependencies: 166 2042 178 2116
 -- Name: pregunta_formulario_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3161,8 +3258,8 @@ ALTER TABLE ONLY pregunta
 
 
 --
--- TOC entry 2061 (class 2606 OID 46532)
--- Dependencies: 178 2042 178 2099
+-- TOC entry 2076 (class 2606 OID 46532)
+-- Dependencies: 178 178 2054 2116
 -- Name: pregunta_pregunta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3171,8 +3268,8 @@ ALTER TABLE ONLY pregunta
 
 
 --
--- TOC entry 2062 (class 2606 OID 46537)
--- Dependencies: 176 178 2040 2099
+-- TOC entry 2077 (class 2606 OID 46537)
+-- Dependencies: 2052 178 176 2116
 -- Name: preguntas_tipo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3181,8 +3278,8 @@ ALTER TABLE ONLY pregunta
 
 
 --
--- TOC entry 2064 (class 2606 OID 46517)
--- Dependencies: 2042 182 178 2099
+-- TOC entry 2079 (class 2606 OID 46517)
+-- Dependencies: 2054 182 178 2116
 -- Name: respuesta_pregunta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3191,8 +3288,8 @@ ALTER TABLE ONLY respuesta
 
 
 --
--- TOC entry 2065 (class 2606 OID 46522)
--- Dependencies: 182 168 2032 2099
+-- TOC entry 2080 (class 2606 OID 46522)
+-- Dependencies: 168 182 2044 2116
 -- Name: respuestas_carga_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3201,7 +3298,7 @@ ALTER TABLE ONLY respuesta
 
 
 --
--- TOC entry 2104 (class 0 OID 0)
+-- TOC entry 2121 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -3212,7 +3309,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-12-26 07:03:47 EST
+-- Completed on 2012-12-26 23:47:35 EST
 
 --
 -- PostgreSQL database dump complete
