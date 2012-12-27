@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.1.7
 -- Dumped by pg_dump version 9.1.7
--- Started on 2012-12-26 23:47:34 EST
+-- Started on 2012-12-27 01:44:27 EST
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -1308,13 +1308,18 @@ SELECT pg_catalog.setval('conocimiento_subarea_id_seq', 26, true);
 --
 
 COPY formulario (id, name, year, description, created, modified, created_by, modified_by, levantamiento_id) FROM stdin;
-1	IES	2012	Datos institucionales	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-2	MEC	2012	Matriz, Extensiones, Centros de Apoyo y Unidades Académicas	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-3	EAU	2012	Estructura Académica (carreras y programas)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-4	MTC	2012	Estudiantes matriculados en nivel técnico, tecnológico, tercer y cuarto nivel	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-5	PAC	2012	Personal académico (profesores e investigadores)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-6	PAT	2012	Personal técnico docente, administrativo y trabajadores	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
-7	BMI	2012	Bienes muebles, inmuebles e intangibles 	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	\N
+1	IES	2012	Datos institucionales	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+2	MEC	2012	Matriz, Extensiones, Centros de Apoyo y Unidades Académicas	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+3	EAU	2012	Estructura Académica (carreras y programas)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+4	MTC	2012	Estudiantes matriculados en nivel técnico, tecnológico, tercer y cuarto nivel	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+5	PAC	2012	Personal académico (profesores e investigadores)	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+6	PAT	2012	Personal técnico docente, administrativo y trabajadores	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+7	BMI	2012	Bienes muebles, inmuebles e intangibles 	2012-12-26 23:36:15.461603	2012-12-26 23:36:15.461603	\N	\N	2
+8	MEC	2010	Matriz, Extensiones, Centros de Apoyo y Unidades Académicas	2012-12-27 01:16:08.68463	2012-12-27 01:16:08.68463	\N	\N	1
+9	EAU	2010	Estructura Académica (carreras y programas)	2012-12-27 01:16:32.616694	2012-12-27 01:16:32.616694	\N	\N	1
+10	MTN	2010	Estudiantes matriculados en tercer nivel	2012-12-27 01:16:50.801237	2012-12-27 01:16:50.801237	\N	\N	1
+11	MCN	2010	Estudiantes matriculados en cuarto nivel\r\n	2012-12-27 01:17:26.821053	2012-12-27 01:17:26.821053	\N	\N	1
+12	PEI	2010	Profesores e investigadores\r\n	2012-12-27 01:17:44.757032	2012-12-27 01:17:44.757032	\N	\N	1
 \.
 
 
@@ -1324,7 +1329,7 @@ COPY formulario (id, name, year, description, created, modified, created_by, mod
 -- Name: formulario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('formulario_id_seq', 7, true);
+SELECT pg_catalog.setval('formulario_id_seq', 12, true);
 
 
 --
@@ -1410,6 +1415,8 @@ SELECT pg_catalog.setval('ies_id_seq', 57, true);
 --
 
 COPY levantamiento (id, name, description, created, modified, created_by, modified_by) FROM stdin;
+1	2010	Levantamiento de datos 2010	2012-12-27 01:14:32.694608	2012-12-27 01:14:32.694608	\N	\N
+2	2011 y 2012	Levantamiento de datos 2011 y 2012	2012-12-27 01:14:49.490836	2012-12-27 01:14:49.490836	\N	\N
 \.
 
 
@@ -1419,7 +1426,7 @@ COPY levantamiento (id, name, description, created, modified, created_by, modifi
 -- Name: levantamiento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('levantamiento_id_seq', 1, false);
+SELECT pg_catalog.setval('levantamiento_id_seq', 2, true);
 
 
 --
@@ -3309,7 +3316,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-12-26 23:47:35 EST
+-- Completed on 2012-12-27 01:44:28 EST
 
 --
 -- PostgreSQL database dump complete
